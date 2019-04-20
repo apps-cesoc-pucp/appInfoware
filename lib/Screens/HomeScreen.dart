@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app_infoware/Pages/Home.dart' as H;
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
@@ -32,7 +33,18 @@ class _HomeState extends State<Home> {
         activeIcon: Icon(Icons.notifications,color: Colors.black54,)
     ),
   ];
+
   int _currentIndex;
+
+  Widget getPage(){
+    switch(_currentIndex){
+      case 0: return H.Home(listItem: new Card(),);
+    }
+    return new Container(
+      alignment: Alignment.center,
+      child: CircularProgressIndicator(),
+    );
+  }
 
   @override
   void initState() {
@@ -96,6 +108,7 @@ class _HomeState extends State<Home> {
           ],
         )
       ),
+      body: getPage(),
     );
   }
 }
