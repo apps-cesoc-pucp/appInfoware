@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
 
   Widget getPage(){
     switch(_currentIndex){
-      case 0: return H.Home(listItem: new Card(),);
+      case 0: return H.Home();
     }
     return new Container(
       alignment: Alignment.center,

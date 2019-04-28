@@ -29,7 +29,7 @@ class InfowareApp extends StatelessWidget {
         ),
         //Definimos un tema para el BottomNavigationBar
       ),
-      home: Home("App Infosoft"),
+      home: Home("Infosoft"),
     );
   }
 }
