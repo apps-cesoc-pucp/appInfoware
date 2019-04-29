@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:app_infoware/Pages/Home.dart' as H;
 
 // ignore: must_be_immutable
-class Home extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
 
   String _title;
 
-  Home(this._title);
+  HomeScreen(this._title);
 
   @override
-  _HomeState createState() => _HomeState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeScreenState extends State<HomeScreen> {
 
   static TextStyle _textStyle;
   //Se definen los elementos del NavigationBar
