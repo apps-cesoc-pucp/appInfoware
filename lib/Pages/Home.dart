@@ -14,7 +14,8 @@ class Home extends StatelessWidget {
     for(int i=0;i<5;i++){
       items.add(new MyCard(
         imageUrl: events[i].url,
-        title: Text(events[i].name,style: TextStyle(color: Colors.white),),
+        title: Text(events[i].name,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.5),),
+        speaker: Text("Expositor: "+events[i].speaker.fullname),
       ));
     }
 
@@ -54,6 +55,7 @@ class Home extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Carousel extends StatelessWidget {
 
   List<Widget>children;
@@ -67,7 +69,7 @@ class Carousel extends StatelessWidget {
 
     return CarouselSlider(
       enlargeCenterPage: true,
-      height: display.width*0.63,
+      height: display.width>display.height?display.height*0.72:display.width*0.81,
       items:this.children,
     );
   }
@@ -76,14 +78,18 @@ class Carousel extends StatelessWidget {
 class MyCard extends StatelessWidget {
 
   Text title;
+  Text speaker;
   String imageUrl;
 
-  MyCard({this.title,this.imageUrl});
+  MyCard({this.title,this.speaker,this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
+
+    Size display=MediaQuery.of(context).size;
+
     return Container(
-      width: MediaQuery.of(context).size.width,
+      width: display.width,
       margin: EdgeInsets.only(right: 5.0,left: 5.0),
       child: Card(
         semanticContainer: true,
@@ -92,24 +98,39 @@ class MyCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0)
         ),
         elevation: 2.0,
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(imageUrl),
-                fit: BoxFit.cover
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Expanded(
+              child: new Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(imageUrl),
+                      fit: BoxFit.cover
+                  ),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    new Expanded(child: Container()),
+                    new Container(
+                      height: 20.0,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Colors.white.withOpacity(0.0),Colors.white]
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              new Expanded(child: Container()),
-              new Container(
-                color: Colors.black54,
-                padding: EdgeInsets.only(top:20.0,bottom: 20.0,left: 10.0),
-                child: title,
-              )
-            ],
-          )
+            new Container(
+              child: ListTile(title: title,subtitle: speaker,),
+            )
+          ],
         )
       ),
     );
