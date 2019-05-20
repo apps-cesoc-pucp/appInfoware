@@ -1,7 +1,9 @@
+import 'package:app_infoware/Pages/OtroPage.dart';
 import 'package:app_infoware/models/event.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:app_infoware/database/crud.dart';
+import 'OtroPage.dart';
 
 class Home extends StatelessWidget {
 
@@ -40,13 +42,13 @@ class Home extends StatelessWidget {
                   new Padding(padding: EdgeInsets.only(bottom: 20.0)),
                   new Carousel(children: cards,),
                   new Padding(padding: EdgeInsets.only(bottom: 20.0)),
-                  new Text("  Dia 2", style: TextStyle(fontSize: 20.0)),
+                  /*new Text("  Dia 2", style: TextStyle(fontSize: 20.0)),
                   new Padding(padding: EdgeInsets.only(bottom: 20.0)),
                   new Carousel(children: cards,),
                   new Padding(padding: EdgeInsets.only(bottom: 20.0)),
                   new Text("  Dia 3", style: TextStyle(fontSize: 20.0)),
                   new Padding(padding: EdgeInsets.only(bottom: 20.0)),
-                  new Carousel(children: cards,)
+                  new Carousel(children: cards,)*/
                 ],
               )
           );
@@ -88,7 +90,8 @@ class MyCard extends StatelessWidget {
 
     Size display=MediaQuery.of(context).size;
 
-    return Container(
+    return GestureDetector(
+      child: new Container(
       width: display.width,
       margin: EdgeInsets.only(right: 5.0,left: 5.0),
       child: Card(
@@ -103,7 +106,9 @@ class MyCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Expanded(
-              child: new Container(
+              child: new Hero(
+                tag: imageUrl,
+                child: new Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
                       image: NetworkImage(imageUrl),
@@ -126,6 +131,7 @@ class MyCard extends StatelessWidget {
                   ],
                 ),
               ),
+              ),
             ),
             new Container(
               child: ListTile(title: title,subtitle: speaker,),
@@ -133,8 +139,12 @@ class MyCard extends StatelessWidget {
           ],
         )
       ),
+    ),
+    onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return OtroPage(url: imageUrl,);
+          }));
+        }
     );
   }
 }
-
-
